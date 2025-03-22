@@ -22,7 +22,7 @@ USER otel
 WORKDIR /home/otel
 
 COPY otelcol-builder.yaml otelcol-builder.yaml
-RUN --mount=type=cache,id=gocache,target=/home/otel/.cache,uid=${USER_UID},gid=${USER_GID},mode=0755,rw \
+RUN --mount=type=cache,id=gocache,target=/home/otel/.cache,uid=${USER_UID},gid=${USER_GID},mode=0755 \
   export XDG_CACHE_HOME=/home/otel/.cache && \
   export CGO_ENABLED=0 && \
   go install go.opentelemetry.io/collector/cmd/builder@latest && \
