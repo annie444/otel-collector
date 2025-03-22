@@ -1,0 +1,94 @@
+dist:
+  module: github.com/open-telemetry/opentelemetry-collector
+  name: otelcol
+  description: "Custom OpenTelemetry Collector distribution"
+  output_path: /home/otel/bin
+
+exporters:
+  # Prometheus
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/exporter/prometheusexporter v0.122.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/exporter/prometheusremotewriteexporter v0.122.0
+  # Alertmanager
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/exporter/alertmanagerexporter v0.122.0
+  # Loki
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/exporter/lokiexporter v0.122.0
+  # Unix
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/exporter/syslogexporter v0.122.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/exporter/fileexporter v0.122.0
+  # OTEL
+  - gomod: go.opentelemetry.io/collector/exporter/debugexporter v0.122.1
+  - gomod: go.opentelemetry.io/collector/exporter/otlpexporter v0.122.1
+  - gomod: go.opentelemetry.io/collector/exporter/otlphttpexporter v0.122.1
+  - gomod: go.opentelemetry.io/collector/exporter/xexporter v0.122.1
+
+receivers:
+  # Prometheus
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/prometheusreceiver v0.122.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/prometheusremotewritereceiver v0.122.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/simpleprometheusreceiver v0.122.0
+  # Loki
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/lokireceiver v0.122.0
+  # Apache
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/apachereceiver v0.122.0
+  # Docker
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/dockerstatsreceiver v0.122.0
+  # Podman
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/podmanreceiver v0.122.0
+  # Postgres
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/postgresqlreceiver v0.122.0
+  # Redis
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/redisreceiver v0.122.0
+  # Memcached
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/memcachedreceiver v0.122.0
+  # NGINX
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/nginxreceiver v0.122.0
+  # Unix
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/filelogreceiver v0.122.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/filestatsreceiver v0.122.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/hostmetricsreceiver v0.122.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/journaldreceiver v0.122.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/namedpipereceiver v0.122.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/snmpreceiver v0.122.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/sshcheckreceiver v0.122.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/syslogreceiver v0.122.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/systemdreceiver v0.122.0
+  # Misc
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/httpcheckreceiver v0.122.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/tcplogreceiver v0.122.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/tlscheckreceiver v0.122.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/udplogreceiver v0.122.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/webhookeventreceiver v0.122.0
+  # OTEL
+  - gomod: go.opentelemetry.io/collector/receiver/otlpreceiver v0.122.1
+  - gomod: go.opentelemetry.io/collector/receiver/nopreceiver v0.122.1
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/otlpjsonfilereceiver v0.122.0
+
+processors:
+  - gomod: go.opentelemetry.io/collector/processor/batchprocessor v0.122.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/attributesprocessor v0.122.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/filterprocessor v0.122.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/groupbytraceprocessor v0.122.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/groupbyattrsprocessor v0.122.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/intervalprocessor v0.122.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/logdedupprocessor v0.122.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/logstransformprocessor v0.122.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/metricstransformprocessor v0.122.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/metricsgenerationprocessor v0.122.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/probabilisticsamplerprocessor v0.122.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/redactionprocessor v0.122.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/remotetapprocessor v0.122.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/resourceprocessor v0.122.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/resourcedetectionprocessor v0.122.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/routingprocessor v0.122.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/schemaprocessor v0.122.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/spanprocessor v0.122.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/tailsamplingprocessor v0.122.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/transformprocessor v0.122.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/geoipprocessor v0.122.0
+
+providers:
+  - gomod: go.opentelemetry.io/collector/confmap/provider/envprovider v1.28.1
+  - gomod: go.opentelemetry.io/collector/confmap/provider/fileprovider v1.28.1
+  - gomod: go.opentelemetry.io/collector/confmap/provider/httpprovider v1.28.1
+  - gomod: go.opentelemetry.io/collector/confmap/provider/httpsprovider v1.28.1
+  - gomod: go.opentelemetry.io/collector/confmap/provider/yamlprovider v1.28.1
