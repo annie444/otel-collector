@@ -86,14 +86,19 @@ pipeline {
 
               // Sign the image
               def digest = sh(returnStdout: true, script: "podman image inspect --format '{{.Digest}}' ${target}").trim()
-              sh "cosign sign -y -r \
-                --upload=true \
-                --registry-username=${env.REGISTRY_USER} \
-                --registry-password=${env.REGISTRY_PASS} \
-                --record-creation-timestamp=true \
-                --tlog-upload=true \
-                --key hashivault://cosign \
-                ${main_base}@${digest}"
+              env.CONTAINER_DIGEST = "${main_base}@${digest}"
+              sh '''
+                  export VAULT_ADDR="${VAULT_ADDR}"
+                  export VAULT_TOKEN=$(vault write -field=token auth/approle/login role_id=${VAULT_ROLE_ID} secret_id=${VAULT_SECRET_ID})
+                  cosign sign -y -r \
+                    --upload=true \
+                    --registry-username=${REGISTRY_USER} \
+                    --registry-password=${REGISTRY_PASS} \
+                    --record-creation-timestamp=true \
+                    --tlog-upload=true \
+                    --key hashivault://cosign \
+                    ${CONTAINER_DIGEST}
+                  '''
 
               // Add to manifest
               manifest += " ${target}"
@@ -105,14 +110,19 @@ pipeline {
 
             // Sign the manifest
             def digest = sh(returnStdout: true, script: "podman image inspect --format '{{.Digest}}' ${main}").trim()
-            sh "cosign sign -y -r \
-                --upload=true \
-                --registry-username=${env.REGISTRY_USER} \
-                --registry-password=${env.REGISTRY_PASS} \
-                --record-creation-timestamp=true \
-                --tlog-upload=true \
-                --key hashivault://cosign \
-                ${main_base}@${digest}"
+            env.CONTAINER_DIGEST = "${main_base}@${digest}"
+            sh '''
+                export VAULT_ADDR="${VAULT_ADDR}"
+                export VAULT_TOKEN=$(vault write -field=token auth/approle/login role_id=${VAULT_ROLE_ID} secret_id=${VAULT_SECRET_ID})
+                cosign sign -y -r \
+                  --upload=true \
+                  --registry-username=${REGISTRY_USER} \
+                  --registry-password=${REGISTRY_PASS} \
+                  --record-creation-timestamp=true \
+                  --tlog-upload=true \
+                  --key hashivault://cosign \
+                  ${CONTAINER_DIGEST}
+                '''
           }
         }
       }
