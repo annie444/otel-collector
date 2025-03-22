@@ -2,7 +2,7 @@ dist:
   module: github.com/open-telemetry/opentelemetry-collector
   name: otelcol
   description: "Custom OpenTelemetry Collector distribution"
-  output_path: /home/otel/bin
+  output_path: .
 
 exporters:
   # Prometheus

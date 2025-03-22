@@ -23,9 +23,11 @@ pipeline {
           stage('Podman Build') {
             steps {
               echo "Building for ${ARCH}"
+              sh 'go install go.opentelemetry.io/collector/cmd/builder@latest'
               retry(3) {
-                sh 'podman build --platform "linux/${ARCH}" -t "slocos.io/otel/opentelemetry-collector:${ARCH}-latest" -f Containerfile .'
+                sh 'builder --verbose --config=otelcol-builder.yaml'
               }
+              sh 'podman build --platform "linux/${ARCH}" -t "slocos.io/otel/opentelemetry-collector:${ARCH}-latest" -f Containerfile .'
             }
           }
         }

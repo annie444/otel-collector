@@ -1,13 +1,4 @@
-FROM registry.fedoraproject.org/fedora-minimal:latest AS build
-
-RUN dnf update -y && \
-  dnf install -y \
-  git \
-  make \
-  gcc \
-  golang \
-  findutils \
-  && dnf clean all
+FROM registry.fedoraproject.org/fedora-minimal:latest
 
 ARG USER_UID=1001
 ARG USER_GID=1001
@@ -21,24 +12,7 @@ USER otel
 
 WORKDIR /home/otel
 
-COPY otelcol-builder.yaml otelcol-builder.yaml
-RUN --mount=type=cache,id=gocache,target=/home/otel/.cache,uid=${USER_UID},gid=${USER_GID},mode=0755 \
-  export XDG_CACHE_HOME=/home/otel/.cache && \
-  export CGO_ENABLED=0 && \
-  go install go.opentelemetry.io/collector/cmd/builder@latest && \
-  export PATH=$HOME/go/bin:$PATH && \
-  builder --verbose --config=otelcol-builder.yaml
-
-FROM registry.fedoraproject.org/fedora-minimal:latest
-
-RUN groupadd -r -g ${USER_GID} otel
-RUN useradd -rm -d /home/otel -s /bin/bash -g otel -u ${USER_UID} otel
-
-USER otel
-
-WORKDIR /home/otel
-
-COPY --from=build --chmod=0755 /home/otel/bin/otelcol /home/otel/bin/otelcol
+COPY --chmod=0755 otelcol /home/otel/bin/otelcol
 
 ENTRYPOINT ["/home/otel/bin/otelcol"]
 
