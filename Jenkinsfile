@@ -77,7 +77,7 @@ pipeline {
               // Arch-specific image name components
               def target_tag = "${it}-${main_tag}"
               def target = "${main_base}:${target_tag}"
-              def cache =  "slocos.io/cache/opentelemetry-collector-buildcache:${it}-${env.COMMIT_SHA}"
+              def cache = "slocos.io/cache/opentelemetry-collector-buildcache:${it}-${env.COMMIT_SHA}"
 
               // Pull, tag, push
               sh "podman pull ${cache}"
@@ -85,20 +85,20 @@ pipeline {
               sh "podman push ${target}"
 
               // Sign the image
-              def digest = sh(returnStdout: true, script: "podman image inspect --format '{{.Digest}}' ${target}").trim()
-              env.CONTAINER_DIGEST = "${main_base}@${digest}"
-              sh '''
-                  export VAULT_ADDR="${VAULT_ADDR}"
-                  export VAULT_TOKEN=$(vault write -field=token auth/approle/login role_id=${VAULT_ROLE_ID} secret_id=${VAULT_SECRET_ID})
-                  cosign sign -y -r \
-                    --upload=true \
-                    --registry-username=${REGISTRY_USER} \
-                    --registry-password=${REGISTRY_PASS} \
-                    --record-creation-timestamp=true \
-                    --tlog-upload=true \
-                    --key hashivault://cosign \
-                    ${CONTAINER_DIGEST}
-                  '''
+              retry(3) {
+                def digest = sh(returnStdout: true, script: "podman image inspect --format '{{.Digest}}' ${target}").trim()
+                env.CONTAINER_DIGEST = "${main_base}@${digest}"
+                sh '''
+                    export VAULT_ADDR="${VAULT_ADDR}"
+                    export VAULT_TOKEN=$(vault write -field=token auth/approle/login role_id=${VAULT_ROLE_ID} secret_id=${VAULT_SECRET_ID})
+                    cosign sign -y -r \
+                      --upload=true \
+                      --registry-username=${REGISTRY_USER} \
+                      --registry-password=${REGISTRY_PASS} \
+                      --key hashivault://cosign \
+                      ${CONTAINER_DIGEST}
+                    '''
+              }
 
               // Add to manifest
               manifest += " ${target}"
