@@ -4,10 +4,6 @@ pipeline {
     pollSCM ignorePostCommitHooks: true, scmpoll_spec: 'H */2 * * *'
   }
 
-  tools {
-    git 'Default'
-  }
-
   agent {
     label 'amd64-agent'
   }
@@ -20,7 +16,6 @@ pipeline {
     quietPeriod 5
     retry(conditions: [nonresumable(), agent()], count: 2)
     timestamps()
-    warnError('Error!')
   }
 
   environment {
