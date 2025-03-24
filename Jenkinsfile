@@ -158,7 +158,7 @@ pipeline {
               def downTime = 1
               retry(3) {
                 downTime = downTime * 2
-                def digest = sh(returnStdout: true, script: "podman image inspect --format '{{.Digest}}' ${target}").trim()
+                def digest = sh(returnStdout: true, script: "skopeo inspect --format '{{.Digest}}' docker://${target}").trim()
                 env.CONTAINER_DIGEST = "${main_base}@${digest}"
                 sh '''
                     export VAULT_ADDR="${VAULT_ADDR}"
@@ -182,7 +182,7 @@ pipeline {
             sh "podman manifest push --all ${main}"
 
             // Sign the manifest
-            def digest = sh(returnStdout: true, script: "podman image inspect --format '{{.Digest}}' ${main}").trim()
+            def digest = sh(returnStdout: true, script: "skopeo inspect --format '{{.Digest}}' docker://${main}").trim()
             env.CONTAINER_DIGEST = "${main_base}@${digest}"
             sh '''
                 export VAULT_ADDR="${VAULT_ADDR}"
