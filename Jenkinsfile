@@ -377,7 +377,7 @@ pipeline {
 
     cleanup {
       echo "Cleaning up!"
-      sh 'podman logout slocos.io'
+      sh 'podman logout --all'
     }
 
   }
