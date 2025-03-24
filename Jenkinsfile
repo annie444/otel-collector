@@ -202,182 +202,182 @@ pipeline {
         }
       }
     }
+  }
 
-    post {
+  post {
 
-      unstable {
-        echo "Unstable!"
-        if (env.IS_ROLLING == "true") {
-          emailext(
-            subject: "Unstable: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
-            body: "Unstable! ${env.BUILD_URL}",
-            recipientProviders: [buildUser(), contributor(), developers(), requestor(), recipients(), upstreamDevelopers()],
-            attachLog: true,
-            compressLog: true,
-            replyTo: env.RELEASE_EMAIL,
-            saveOutput: false
-          )
-        } else if (env.IS_RELEASE == "true") {
-          emailext(
-            subject: "Unstable: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
-            body: "Unstable! ${env.BUILD_URL}",
-            recipientProviders: [recipients(), previous()],
-            attachLog: true,
-            compressLog: true,
-            replyTo: env.RELEASE_EMAIL,
-            saveOutput: false
-          )
-        } else if (env.IS_PR == "true") {
-          emailext(
-            subject: "Unstable: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
-            body: "Unstable! ${env.BUILD_URL}",
-            recipientProviders: [buildUser(), developers(), requestor(), upstreamDevelopers()],
-            attachLog: true,
-            compressLog: true,
-            replyTo: env.DEV_EMAIL,
-            saveOutput: false
-          )
-        } else if (env.IS_DEV == "true") {
-          emailext(
-            subject: "Unstable: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
-            body: "Unstable! ${env.BUILD_URL}",
-            recipientProviders: [buildUser(), developers(), requestor()],
-            attachLog: true,
-            compressLog: true,
-            replyTo: env.DEV_EMAIL,
-            saveOutput: false
-          )
-        } else {
-          echo "Unknown build type"
-        }
+    unstable {
+      echo "Unstable!"
+      if (env.IS_ROLLING == "true") {
+        emailext(
+          subject: "Unstable: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
+          body: "Unstable! ${env.BUILD_URL}",
+          recipientProviders: [buildUser(), contributor(), developers(), requestor(), recipients(), upstreamDevelopers()],
+          attachLog: true,
+          compressLog: true,
+          replyTo: env.RELEASE_EMAIL,
+          saveOutput: false
+        )
+      } else if (env.IS_RELEASE == "true") {
+        emailext(
+          subject: "Unstable: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
+          body: "Unstable! ${env.BUILD_URL}",
+          recipientProviders: [recipients(), previous()],
+          attachLog: true,
+          compressLog: true,
+          replyTo: env.RELEASE_EMAIL,
+          saveOutput: false
+        )
+      } else if (env.IS_PR == "true") {
+        emailext(
+          subject: "Unstable: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
+          body: "Unstable! ${env.BUILD_URL}",
+          recipientProviders: [buildUser(), developers(), requestor(), upstreamDevelopers()],
+          attachLog: true,
+          compressLog: true,
+          replyTo: env.DEV_EMAIL,
+          saveOutput: false
+        )
+      } else if (env.IS_DEV == "true") {
+        emailext(
+          subject: "Unstable: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
+          body: "Unstable! ${env.BUILD_URL}",
+          recipientProviders: [buildUser(), developers(), requestor()],
+          attachLog: true,
+          compressLog: true,
+          replyTo: env.DEV_EMAIL,
+          saveOutput: false
+        )
+      } else {
+        echo "Unknown build type"
       }
+    }
 
-      success {
-        echo "Success!"
-        if (env.IS_ROLLING == "true") {
-          emailext(
-            subject: "Success: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
-            body: "Success! ${env.BUILD_URL}",
-            recipientProviders: [buildUser(), contributor(), developers(), requestor(), recipients(), upstreamDevelopers()],
-            attachLog: true,
-            compressLog: true,
-            replyTo: env.RELEASE_EMAIL,
-            saveOutput: false
-          )
-        } else if (env.IS_RELEASE == "true") {
-          emailext(
-            subject: "Success: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
-            body: "Success! ${env.BUILD_URL}",
-            recipientProviders: [recipients(), previous()],
-            attachLog: true,
-            compressLog: true,
-            replyTo: env.RELEASE_EMAIL,
-            saveOutput: true
-          )
-        } else if (env.IS_PR == "true") {
-          emailext(
-            subject: "Success: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
-            body: "Success! ${env.BUILD_URL}",
-            recipientProviders: [buildUser(), developers(), requestor(), upstreamDevelopers()],
-            attachLog: true,
-            compressLog: true,
-            replyTo: env.DEV_EMAIL,
-            saveOutput: false
-          )
-        } else if (env.IS_DEV == "true") {
-          emailext(
-            subject: "Success: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
-            body: "Success! ${env.BUILD_URL}",
-            recipientProviders: [buildUser(), developers(), requestor()],
-            attachLog: true,
-            compressLog: true,
-            replyTo: env.DEV_EMAIL,
-            saveOutput: false
-          )
-        } else {
-          echo "Unknown build type"
-        }
+    success {
+      echo "Success!"
+      if (env.IS_ROLLING == "true") {
+        emailext(
+          subject: "Success: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
+          body: "Success! ${env.BUILD_URL}",
+          recipientProviders: [buildUser(), contributor(), developers(), requestor(), recipients(), upstreamDevelopers()],
+          attachLog: true,
+          compressLog: true,
+          replyTo: env.RELEASE_EMAIL,
+          saveOutput: false
+        )
+      } else if (env.IS_RELEASE == "true") {
+        emailext(
+          subject: "Success: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
+          body: "Success! ${env.BUILD_URL}",
+          recipientProviders: [recipients(), previous()],
+          attachLog: true,
+          compressLog: true,
+          replyTo: env.RELEASE_EMAIL,
+          saveOutput: true
+        )
+      } else if (env.IS_PR == "true") {
+        emailext(
+          subject: "Success: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
+          body: "Success! ${env.BUILD_URL}",
+          recipientProviders: [buildUser(), developers(), requestor(), upstreamDevelopers()],
+          attachLog: true,
+          compressLog: true,
+          replyTo: env.DEV_EMAIL,
+          saveOutput: false
+        )
+      } else if (env.IS_DEV == "true") {
+        emailext(
+          subject: "Success: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
+          body: "Success! ${env.BUILD_URL}",
+          recipientProviders: [buildUser(), developers(), requestor()],
+          attachLog: true,
+          compressLog: true,
+          replyTo: env.DEV_EMAIL,
+          saveOutput: false
+        )
+      } else {
+        echo "Unknown build type"
       }
+    }
 
-      aborted {
-        echo "Build Aborted!"
-        if (env.IS_ROLLING == "true") {
-          emailext(
-            subject: "Build aborted: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
-            body: "Build aborted! ${env.BUILD_URL}",
-            recipientProviders: [buildUser(), contributor(), developers(), requestor(), recipients(), upstreamDevelopers()],
-            attachLog: true,
-            compressLog: true,
-            replyTo: env.RELEASE_EMAIL,
-            saveOutput: false
-          )
-        } else if (env.IS_RELEASE == "true") {
-          emailext(
-            subject: "Build aborted: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
-            body: "Build aborted! ${env.BUILD_URL}",
-            recipientProviders: [recipients(), previous()],
-            attachLog: true,
-            compressLog: true,
-            replyTo: env.RELEASE_EMAIL,
-            saveOutput: false
-          )
-        } else if (env.IS_PR == "true" || env.IS_DEV == "true") {
-          emailext(
-            subject: "Build aborted: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
-            body: "Build aborted! ${env.BUILD_URL}",
-            recipientProviders: [buildUser(), requestor()],
-            attachLog: true,
-            compressLog: true,
-            replyTo: env.DEV_EMAIL,
-            saveOutput: false
-          )
-        } else {
-          echo "Unknown build type"
-        }
+    aborted {
+      echo "Build Aborted!"
+      if (env.IS_ROLLING == "true") {
+        emailext(
+          subject: "Build aborted: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
+          body: "Build aborted! ${env.BUILD_URL}",
+          recipientProviders: [buildUser(), contributor(), developers(), requestor(), recipients(), upstreamDevelopers()],
+          attachLog: true,
+          compressLog: true,
+          replyTo: env.RELEASE_EMAIL,
+          saveOutput: false
+        )
+      } else if (env.IS_RELEASE == "true") {
+        emailext(
+          subject: "Build aborted: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
+          body: "Build aborted! ${env.BUILD_URL}",
+          recipientProviders: [recipients(), previous()],
+          attachLog: true,
+          compressLog: true,
+          replyTo: env.RELEASE_EMAIL,
+          saveOutput: false
+        )
+      } else if (env.IS_PR == "true" || env.IS_DEV == "true") {
+        emailext(
+          subject: "Build aborted: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
+          body: "Build aborted! ${env.BUILD_URL}",
+          recipientProviders: [buildUser(), requestor()],
+          attachLog: true,
+          compressLog: true,
+          replyTo: env.DEV_EMAIL,
+          saveOutput: false
+        )
+      } else {
+        echo "Unknown build type"
       }
+    }
 
-      fixed {
-        if (env.IS_ROLLING == "true") {
-          emailext(
-            subject: "Resolved failing pipeline: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
-            body: "Resolved failing pipeline! ${env.BUILD_URL}",
-            recipientProviders: [buildUser(), requestor()],
-            attachLog: false,
-            replyTo: env.RELEASE_EMAIL,
-            saveOutput: false
-          )
-        } else if (env.IS_RELEASE == "true") {
-          emailext(
-            subject: "Resolved failing pipeline: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
-            body: "Resolved failing pipeline! ${env.BUILD_URL}",
-            recipientProviders: [buildUser(), requestor()],
-            attachLog: false,
-            replyTo: env.RELEASE_EMAIL,
-            saveOutput: false
-          )
-        } else if (env.IS_PR == "true" || env.IS_DEV == "true") {
-          emailext(
-            subject: "Resolved failing pipeline: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
-            body: "Resolved failing pipeline! ${env.BUILD_URL}",
-            recipientProviders: [buildUser(), requestor()],
-            attachLog: false,
-            replyTo: env.DEV_EMAIL,
-            saveOutput: false
-          )
-        } else {
-          echo "Unknown build type"
-        }
-
-      }
-
-      cleanup {
-        echo "Cleaning up!"
-        script {
-          sh 'podman logout slocos.io'
-        }
+    fixed {
+      if (env.IS_ROLLING == "true") {
+        emailext(
+          subject: "Resolved failing pipeline: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
+          body: "Resolved failing pipeline! ${env.BUILD_URL}",
+          recipientProviders: [buildUser(), requestor()],
+          attachLog: false,
+          replyTo: env.RELEASE_EMAIL,
+          saveOutput: false
+        )
+      } else if (env.IS_RELEASE == "true") {
+        emailext(
+          subject: "Resolved failing pipeline: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
+          body: "Resolved failing pipeline! ${env.BUILD_URL}",
+          recipientProviders: [buildUser(), requestor()],
+          attachLog: false,
+          replyTo: env.RELEASE_EMAIL,
+          saveOutput: false
+        )
+      } else if (env.IS_PR == "true" || env.IS_DEV == "true") {
+        emailext(
+          subject: "Resolved failing pipeline: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
+          body: "Resolved failing pipeline! ${env.BUILD_URL}",
+          recipientProviders: [buildUser(), requestor()],
+          attachLog: false,
+          replyTo: env.DEV_EMAIL,
+          saveOutput: false
+        )
+      } else {
+        echo "Unknown build type"
       }
 
     }
+
+    cleanup {
+      echo "Cleaning up!"
+      script {
+        sh 'podman logout slocos.io'
+      }
+    }
+
   }
 }
 // vim: ft=groovy
