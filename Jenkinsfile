@@ -29,8 +29,8 @@ pipeline {
     IS_RELEASE = "false"
     IS_PR = "false"
     IS_DEV = "false"
-    RELEASE_EMAIL = "ops@slocos.io"
-    DEV_EMAIL = "devops@slocos.io"
+    RELEASE_EMAIL = "ops@jpeg.gay"
+    DEV_EMAIL = "devops@jpeg.gay"
     PRIMARY_BRANCH = "main"
   }
 
