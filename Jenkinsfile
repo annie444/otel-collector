@@ -202,7 +202,7 @@ pipeline {
           emailext(
             subject: "Unstable: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
             body: "Unstable! ${env.BUILD_URL}",
-            recipientProviders: [buildUser(), contributor(), developers(), requestor(), recipients(), upstreamDevelopers()],
+            recipientProviders: [contributor(), developers(), requestor()],
             attachLog: true,
             compressLog: true,
             replyTo: env.RELEASE_EMAIL,
@@ -212,7 +212,7 @@ pipeline {
           emailext(
             subject: "Unstable: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
             body: "Unstable! ${env.BUILD_URL}",
-            recipientProviders: [recipients(), previous()],
+            recipientProviders: [previous()],
             attachLog: true,
             compressLog: true,
             replyTo: env.RELEASE_EMAIL,
@@ -222,7 +222,7 @@ pipeline {
           emailext(
             subject: "Unstable: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
             body: "Unstable! ${env.BUILD_URL}",
-            recipientProviders: [buildUser(), developers(), requestor(), upstreamDevelopers()],
+            recipientProviders: [developers(), requestor()],
             attachLog: true,
             compressLog: true,
             replyTo: env.DEV_EMAIL,
@@ -232,7 +232,7 @@ pipeline {
           emailext(
             subject: "Unstable: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
             body: "Unstable! ${env.BUILD_URL}",
-            recipientProviders: [buildUser(), developers(), requestor()],
+            recipientProviders: [developers(), requestor()],
             attachLog: true,
             compressLog: true,
             replyTo: env.DEV_EMAIL,
@@ -251,7 +251,7 @@ pipeline {
           emailext(
             subject: "Success: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
             body: "Success! ${env.BUILD_URL}",
-            recipientProviders: [buildUser(), contributor(), developers(), requestor(), recipients(), upstreamDevelopers()],
+            recipientProviders: [contributor(), developers(), requestor()],
             attachLog: true,
             compressLog: true,
             replyTo: env.RELEASE_EMAIL,
@@ -261,7 +261,7 @@ pipeline {
           emailext(
             subject: "Success: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
             body: "Success! ${env.BUILD_URL}",
-            recipientProviders: [recipients(), previous()],
+            recipientProviders: [previous()],
             attachLog: true,
             compressLog: true,
             replyTo: env.RELEASE_EMAIL,
@@ -271,7 +271,7 @@ pipeline {
           emailext(
             subject: "Success: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
             body: "Success! ${env.BUILD_URL}",
-            recipientProviders: [buildUser(), developers(), requestor(), upstreamDevelopers()],
+            recipientProviders: [developers(), requestor()],
             attachLog: true,
             compressLog: true,
             replyTo: env.DEV_EMAIL,
@@ -281,7 +281,7 @@ pipeline {
           emailext(
             subject: "Success: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
             body: "Success! ${env.BUILD_URL}",
-            recipientProviders: [buildUser(), developers(), requestor()],
+            recipientProviders: [developers(), requestor()],
             attachLog: true,
             compressLog: true,
             replyTo: env.DEV_EMAIL,
@@ -300,7 +300,7 @@ pipeline {
           emailext(
             subject: "Build aborted: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
             body: "Build aborted! ${env.BUILD_URL}",
-            recipientProviders: [buildUser(), contributor(), developers(), requestor(), recipients(), upstreamDevelopers()],
+            recipientProviders: [contributor(), developers(), requestor()],
             attachLog: true,
             compressLog: true,
             replyTo: env.RELEASE_EMAIL,
@@ -310,7 +310,7 @@ pipeline {
           emailext(
             subject: "Build aborted: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
             body: "Build aborted! ${env.BUILD_URL}",
-            recipientProviders: [recipients(), previous()],
+            recipientProviders: [previous()],
             attachLog: true,
             compressLog: true,
             replyTo: env.RELEASE_EMAIL,
@@ -320,7 +320,7 @@ pipeline {
           emailext(
             subject: "Build aborted: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
             body: "Build aborted! ${env.BUILD_URL}",
-            recipientProviders: [buildUser(), requestor()],
+            recipientProviders: [requestor()],
             attachLog: true,
             compressLog: true,
             replyTo: env.DEV_EMAIL,
@@ -338,7 +338,7 @@ pipeline {
           emailext(
             subject: "Resolved failing pipeline: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
             body: "Resolved failing pipeline! ${env.BUILD_URL}",
-            recipientProviders: [buildUser(), requestor()],
+            recipientProviders: [requestor()],
             attachLog: false,
             replyTo: env.RELEASE_EMAIL,
             saveOutput: false
@@ -347,7 +347,7 @@ pipeline {
           emailext(
             subject: "Resolved failing pipeline: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
             body: "Resolved failing pipeline! ${env.BUILD_URL}",
-            recipientProviders: [buildUser(), requestor()],
+            recipientProviders: [previous()],
             attachLog: false,
             replyTo: env.RELEASE_EMAIL,
             saveOutput: false
@@ -356,7 +356,7 @@ pipeline {
           emailext(
             subject: "Resolved failing pipeline: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
             body: "Resolved failing pipeline! ${env.BUILD_URL}",
-            recipientProviders: [buildUser(), requestor()],
+            recipientProviders: [requestor()],
             attachLog: false,
             replyTo: env.DEV_EMAIL,
             saveOutput: false
@@ -373,7 +373,7 @@ pipeline {
           emailext(
             subject: "Failed: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
             body: "Failed! ${env.BUILD_URL}",
-            recipientProviders: [buildUser(), contributor(), developers(), requestor(), recipients(), upstreamDevelopers()],
+            recipientProviders: [requestor()],
             attachLog: true,
             compressLog: true,
             replyTo: env.RELEASE_EMAIL,
@@ -383,7 +383,7 @@ pipeline {
           emailext(
             subject: "Failed: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
             body: "Failed! ${env.BUILD_URL}",
-            recipientProviders: [recipients(), previous()],
+            recipientProviders: [previous()],
             attachLog: true,
             compressLog: true,
             replyTo: env.RELEASE_EMAIL,
@@ -393,7 +393,7 @@ pipeline {
           emailext(
             subject: "Failed: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
             body: "Failed! ${env.BUILD_URL}",
-            recipientProviders: [buildUser(), requestor()],
+            recipientProviders: [requestor()],
             attachLog: true,
             compressLog: true,
             replyTo: env.DEV_EMAIL,
