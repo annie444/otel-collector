@@ -38,7 +38,7 @@ pipeline {
     stage('Set Variables') {
       steps {
         script {
-          env.COMMIT_SHA = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
+          env.COMMIT_SHA = sh(returnStdout: true, script: 'git rev-parse HEAD')
           if (env.BRANCH_NAME == env.PRIMARY_BRANCH) {
             env.CACHE_PROJECT = "cache"
             env.TAG = "latest"
@@ -73,9 +73,6 @@ pipeline {
         }
         agent {
           label "${ARCH}-agent"
-        }
-        options {
-            onMonit()
         }
         stages {
           stage('Podman Build') {
