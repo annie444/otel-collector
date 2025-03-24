@@ -16,7 +16,6 @@ pipeline {
     ansiColor('xterm')
     buildDiscarder logRotator(artifactDaysToKeepStr: '60', artifactNumToKeepStr: '10', daysToKeepStr: '60', numToKeepStr: '10')
     durabilityHint 'MAX_SURVIVABILITY'
-    onMonit(debug: true, port: 9101)
     parallelsAlwaysFailFast()
     quietPeriod 5
     retry(conditions: [nonresumable(), agent()], count: 2)
