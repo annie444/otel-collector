@@ -170,7 +170,7 @@ pipeline {
 
             // Push the manifest
             sh "${manifest}"
-            sh "podman manifest push --all ${main}"
+            sh "podman manifest push --all ${main} docker://${main}"
 
             // Sign the manifest
             def digest = sh(returnStdout: true, script: "skopeo inspect --format '{{.Digest}}' docker://${main}").trim()
@@ -365,6 +365,42 @@ pipeline {
           echo "Unknown build type"
         }
       }
+    }
+
+    failure {
+      if (env.IS_ROLLING == "true") {
+          emailext(
+            subject: "Failed: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
+            body: "Failed! ${env.BUILD_URL}",
+            recipientProviders: [buildUser(), contributor(), developers(), requestor(), recipients(), upstreamDevelopers()],
+            attachLog: true,
+            compressLog: true,
+            replyTo: env.RELEASE_EMAIL,
+            saveOutput: false
+          )
+        } else if (env.IS_RELEASE == "true") {
+          emailext(
+            subject: "Failed: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
+            body: "Failed! ${env.BUILD_URL}",
+            recipientProviders: [recipients(), previous()],
+            attachLog: true,
+            compressLog: true,
+            replyTo: env.RELEASE_EMAIL,
+            saveOutput: false
+          )
+        } else if (env.IS_PR == "true" || env.IS_DEV == "true") {
+          emailext(
+            subject: "Failed: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
+            body: "Failed! ${env.BUILD_URL}",
+            recipientProviders: [buildUser(), requestor()],
+            attachLog: true,
+            compressLog: true,
+            replyTo: env.DEV_EMAIL,
+            saveOutput: false
+          )
+        } else {
+          echo "Unknown build type"
+        }
     }
 
     cleanup {
