@@ -368,7 +368,8 @@ pipeline {
     }
 
     failure {
-      if (env.IS_ROLLING == "true") {
+      script {
+        if (env.IS_ROLLING == "true") {
           emailext(
             subject: "Failed: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
             body: "Failed! ${env.BUILD_URL}",
@@ -401,6 +402,7 @@ pipeline {
         } else {
           echo "Unknown build type"
         }
+      }
     }
 
     cleanup {
