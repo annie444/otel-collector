@@ -38,7 +38,7 @@ pipeline {
     stage('Set Variables') {
       steps {
         script {
-          env.COMMIT_SHA = sh(returnStdout: true, script: 'git rev-parse HEAD')
+          env.COMMIT_SHA = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
           if (env.BRANCH_NAME == env.PRIMARY_BRANCH) {
             env.CACHE_PROJECT = "cache"
             env.TAG = "latest"
@@ -104,7 +104,7 @@ pipeline {
               script {
                 def cache = "${env.REGISTRY}/${env.CACHE_PROJECT}/${env.IMAGE}-buildcache:${env.ARCH}-${env.COMMIT_SHA}"
                 def platform = "linux/${env.ARCH}"
-                sh "podman build --platform ${platform} -t ${cache} -f Containerfile ."
+                sh "podman build --platform ${platform} --tag ${cache} --file Containerfile ."
                 sh "podman push ${cache}"
               }
             }
