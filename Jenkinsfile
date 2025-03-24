@@ -370,6 +370,7 @@ pipeline {
     cleanup {
       echo "Cleaning up!"
       sh 'podman logout --all'
+      sh 'podman image rm ${REGISTRY}/${PROJECT}/${IMAGE}:${TAG}'
     }
 
   }
