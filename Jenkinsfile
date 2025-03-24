@@ -89,18 +89,20 @@ pipeline {
           stage('Podman Build') {
             steps {
               echo "Building for ${ARCH}"
-              def downTime = 1
-              retry(3) {
-                downTime = downTime * 2
-                sh 'go install go.opentelemetry.io/collector/cmd/builder@latest'
-                sh 'builder --verbose --config=otelcol-builder.yaml'
-                sleep downTime
+              script {
+                def downTime = 1
+                retry(3) {
+                  downTime = downTime * 2
+                  sh 'go install go.opentelemetry.io/collector/cmd/builder@latest'
+                  sh 'builder --verbose --config=otelcol-builder.yaml'
+                  sleep downTime
+                }
+                archiveArtifacts artifacts: 'otelcol',
+                    allowEmptyArchive: true,
+                    fingerprint: true,
+                    onlyIfSuccessful: true,
+                    followSymlinks: true
               }
-              archiveArtifacts artifacts: 'otelcol',
-                   allowEmptyArchive: true,
-                   fingerprint: true,
-                   onlyIfSuccessful: true,
-                   followSymlinks: true
               withCredentials([
                 usernamePassword(
                   credentialsId: 'e86d9ebd-8b01-4f1f-8d2e-b871205023f7',
