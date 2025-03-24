@@ -198,7 +198,7 @@ pipeline {
     unstable {
       echo "Unstable!"
       script {
-        if (env.IS_ROLLING == "true") {
+        if (env.IS_ROLLING) {
           emailext(
             subject: "Unstable: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
             body: "Unstable! ${env.BUILD_URL}",
@@ -208,7 +208,7 @@ pipeline {
             replyTo: env.RELEASE_EMAIL,
             saveOutput: false
           )
-        } else if (env.IS_RELEASE == "true") {
+        } else if (env.IS_RELEASE) {
           emailext(
             subject: "Unstable: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
             body: "Unstable! ${env.BUILD_URL}",
@@ -218,7 +218,7 @@ pipeline {
             replyTo: env.RELEASE_EMAIL,
             saveOutput: false
           )
-        } else if (env.IS_PR == "true") {
+        } else if (env.IS_PR) {
           emailext(
             subject: "Unstable: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
             body: "Unstable! ${env.BUILD_URL}",
@@ -228,7 +228,7 @@ pipeline {
             replyTo: env.DEV_EMAIL,
             saveOutput: false
           )
-        } else if (env.IS_DEV == "true") {
+        } else if (env.IS_DEV) {
           emailext(
             subject: "Unstable: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
             body: "Unstable! ${env.BUILD_URL}",
@@ -247,7 +247,7 @@ pipeline {
     success {
       echo "Success!"
       script {
-        if (env.IS_ROLLING == "true") {
+        if (env.IS_ROLLING) {
           emailext(
             subject: "Success: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
             body: "Success! ${env.BUILD_URL}",
@@ -257,7 +257,7 @@ pipeline {
             replyTo: env.RELEASE_EMAIL,
             saveOutput: false
           )
-        } else if (env.IS_RELEASE == "true") {
+        } else if (env.IS_RELEASE) {
           emailext(
             subject: "Success: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
             body: "Success! ${env.BUILD_URL}",
@@ -267,7 +267,7 @@ pipeline {
             replyTo: env.RELEASE_EMAIL,
             saveOutput: true
           )
-        } else if (env.IS_PR == "true") {
+        } else if (env.IS_PR) {
           emailext(
             subject: "Success: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
             body: "Success! ${env.BUILD_URL}",
@@ -277,7 +277,7 @@ pipeline {
             replyTo: env.DEV_EMAIL,
             saveOutput: false
           )
-        } else if (env.IS_DEV == "true") {
+        } else if (env.IS_DEV) {
           emailext(
             subject: "Success: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
             body: "Success! ${env.BUILD_URL}",
@@ -296,7 +296,7 @@ pipeline {
     aborted {
       echo "Build Aborted!"
       script {
-        if (env.IS_ROLLING == "true") {
+        if (env.IS_ROLLING) {
           emailext(
             subject: "Build aborted: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
             body: "Build aborted! ${env.BUILD_URL}",
@@ -306,7 +306,7 @@ pipeline {
             replyTo: env.RELEASE_EMAIL,
             saveOutput: false
           )
-        } else if (env.IS_RELEASE == "true") {
+        } else if (env.IS_RELEASE) {
           emailext(
             subject: "Build aborted: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
             body: "Build aborted! ${env.BUILD_URL}",
@@ -316,7 +316,7 @@ pipeline {
             replyTo: env.RELEASE_EMAIL,
             saveOutput: false
           )
-        } else if (env.IS_PR == "true" || env.IS_DEV == "true") {
+        } else if (env.IS_PR || env.IS_DEV) {
           emailext(
             subject: "Build aborted: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
             body: "Build aborted! ${env.BUILD_URL}",
@@ -334,7 +334,7 @@ pipeline {
 
     fixed {
       script {
-        if (env.IS_ROLLING == "true") {
+        if (env.IS_ROLLING) {
           emailext(
             subject: "Resolved failing pipeline: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
             body: "Resolved failing pipeline! ${env.BUILD_URL}",
@@ -343,7 +343,7 @@ pipeline {
             replyTo: env.RELEASE_EMAIL,
             saveOutput: false
           )
-        } else if (env.IS_RELEASE == "true") {
+        } else if (env.IS_RELEASE) {
           emailext(
             subject: "Resolved failing pipeline: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
             body: "Resolved failing pipeline! ${env.BUILD_URL}",
@@ -352,7 +352,7 @@ pipeline {
             replyTo: env.RELEASE_EMAIL,
             saveOutput: false
           )
-        } else if (env.IS_PR == "true" || env.IS_DEV == "true") {
+        } else if (env.IS_PR || env.IS_DEV) {
           emailext(
             subject: "Resolved failing pipeline: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
             body: "Resolved failing pipeline! ${env.BUILD_URL}",
@@ -369,7 +369,7 @@ pipeline {
 
     failure {
       script {
-        if (env.IS_ROLLING == "true") {
+        if (env.IS_ROLLING) {
           emailext(
             subject: "Failed: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
             body: "Failed! ${env.BUILD_URL}",
@@ -379,7 +379,7 @@ pipeline {
             replyTo: env.RELEASE_EMAIL,
             saveOutput: false
           )
-        } else if (env.IS_RELEASE == "true") {
+        } else if (env.IS_RELEASE) {
           emailext(
             subject: "Failed: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
             body: "Failed! ${env.BUILD_URL}",
@@ -389,7 +389,7 @@ pipeline {
             replyTo: env.RELEASE_EMAIL,
             saveOutput: false
           )
-        } else if (env.IS_PR == "true" || env.IS_DEV == "true") {
+        } else if (env.IS_PR || env.IS_DEV) {
           emailext(
             subject: "Failed: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
             body: "Failed! ${env.BUILD_URL}",
