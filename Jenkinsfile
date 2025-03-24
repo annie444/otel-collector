@@ -1,8 +1,6 @@
 pipeline {
   triggers {
     githubPush()
-    cron '''TZ=America/Los_Angeles
-            H H(6-10) * * 7'''
     pollSCM ignorePostCommitHooks: true, scmpoll_spec: 'H */2 * * *'
   }
 
@@ -380,9 +378,7 @@ pipeline {
 
     cleanup {
       echo "Cleaning up!"
-      script {
-        sh 'podman logout slocos.io'
-      }
+      sh 'podman logout slocos.io'
     }
 
   }
